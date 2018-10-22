@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Query;
 using MyOData.Models;
 
 namespace MyOData
@@ -23,8 +24,12 @@ namespace MyOData
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            ODataModelBuilder builder = new ODataConventionModelBuilder();
+            
+            config.OrderBy().Filter().MaxTop(null);
+
+            ODataModelBuilder builder = new ODataConventionModelBuilder(); 
             builder.EntitySet<Product>("Products");
+            //builder.EntityType<Product>().OrderBy();
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: null,
